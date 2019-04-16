@@ -55,7 +55,7 @@ Json
 }
 ```
 
-
+You can use the following example service principals in the statement:
 | Event Source | Service Principal |
 |------|-------------|
 | Amazon CloudWatch Events | events.amazonaws.com |
@@ -68,3 +68,14 @@ Json
 | AWS Database Migration Service |	dms.amazonaws.com |
 | AWS Directory Service	| ds.amazonaws.com |
 | AWS Snowball	| importexport.amazonaws.com |
+
+Some Amazon SNS event sources require you to provide an IAM role (rather than the service principal) in the AWS KMS key policy:
+
+- Amazon EC2 Auto Scaling events
+- Amazon Elastic Transcoder events
+- AWS CodePipeline events
+- AWS Config events
+- AWS Elastic Beanstalk events
+- AWS IoT events
+
+Once the CMK key policy has been configured, you can enable encryption on the topic using the CMK, and then provide the encrypted topic’s ARN to the event source.
