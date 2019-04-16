@@ -56,6 +56,7 @@ Json
 ```
 
 You can use the following example service principals in the statement:
+
 | Event Source | Service Principal |
 |------|-------------|
 | Amazon CloudWatch Events | events.amazonaws.com |
