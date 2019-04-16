@@ -1,4 +1,4 @@
-# Encryption of Simple Notification Service(SNS) using Key Management Service(KMS)
+# Encrypting Simple Notification Service(SNS) Topic using Key Management Service(KMS)
 
 AWS Key Management Service (KMS) is an encryption and key management service scaled for the cloud. KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
 
@@ -9,7 +9,8 @@ Amazon SNS provides message encryption in transit, based on Amazon Trust Service
  Amazon SNS API is served through Secure HTTP (HTTPS) and encrypts all messages in transit with Transport Layer Security (TLS) certificates issued by ATS(Amazon Trust Services). These certificates verify the identity of the Amazon SNS API server whenever an encrypted connection is established.
 
 # Message encryption at rest
-  Amazon SNS supports encrypted topics. When you publish messages to encrypted topics, Amazon SNS uses customer master keys (CMK), powered by AWS KMS, to encrypt your messages. Amazon SNS supports customer-managed as well as AWS-managed CMKs. As soon as Amazon SNS receives your messages, the encryption takes place on the server. The messages are stored in encrypted form across multiple Availability Zones (AZs) for durability and are decrypted just before being delivered to subscribed endpoints, such as Amazon Simple Queue Service (Amazon SQS) queues, AWS Lambda functions, and HTTP and HTTPS webhooks.
+  Amazon SNS supports encrypted topics. When you publish messages to encrypted topics, Amazon SNS uses customer master keys (CMK), powered by AWS KMS, to encrypt your messages. Amazon SNS supports customer-managed as well as AWS-managed CMKs. As soon as Amazon SNS receives your messages, the encryption takes place on the server.
+  The messages are stored in encrypted form across multiple Availability Zones (AZs) for durability and are decrypted just before being delivered to subscribed endpoints, such as Amazon Simple Queue Service (Amazon SQS) queues, AWS Lambda functions, and HTTP and HTTPS webhooks.
 
 #### General Points
  - Amazon SNS encrypts only the body of the messages that you publish. It doesn’t encrypt message metadata (identifier, subject, timestamp, and attributes), topic metadata (name and attributes), or topic metrics. Thus, encryption doesn’t affect the operations of Amazon SNS, such as message fanout and message filtering.
