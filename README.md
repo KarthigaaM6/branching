@@ -10,7 +10,7 @@ Amazon SNS provides message encryption in transit, based on Amazon Trust Service
 
 # Message encryption at rest
   Amazon SNS supports encrypted topics. When you publish messages to encrypted topics, Amazon SNS uses customer master keys (CMK), powered by AWS KMS, to encrypt your messages. Amazon SNS supports customer-managed as well as AWS-managed CMKs. As soon as Amazon SNS receives your messages, the encryption takes place on the server.
-  
+
   The messages are stored in encrypted form across multiple Availability Zones (AZs) for durability and are decrypted just before being delivered to subscribed endpoints, such as Amazon Simple Queue Service (Amazon SQS) queues, AWS Lambda functions, and HTTP and HTTPS webhooks.
 
 #### General Points
@@ -18,23 +18,10 @@ Amazon SNS provides message encryption in transit, based on Amazon Trust Service
  - Amazon SNS uses envelope encryption internally. It uses your configured CMK to generate a short-lived data encryption key (DEK) and then reuses this DEK to encrypt your published messages for 5 minutes. When the DEK expires, Amazon SNS automatically rotates to generate a new DEK from AWS KMS.
 
 # Creating, subscribing and publishing to encrypted topics
-First, the principal publishing messages to the Amazon SNS encrypted topic must have access permission to execute the AWS KMS operations ```GenerateDataKey``` and ```Decrypt```, in addition to the Amazon SNS operation Publish. The principal can be either an IAM user or an IAM role. The following IAM policy grants the required access permission to the principal.
+You can create an Amazon SNS encrypted topic by setting its attribute KmsMasterKeyId, which expects an AWS KMS key identifier. The key identifier can be a key ID, key ARN, or key alias. You can use the identifier of either a customer-managed CMK, such as alias/MyKey, or the AWS-managed CMK in your account, whose alias is alias/aws/sns.
 
-```
-Json
-{
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": [
-      "kms:GenerateDataKey",
-      "kms:Decrypt",
-      "sns:Publish"
-    ],
-    "Resource": "*"
-  }
-}
-```
+If you want to use a customer-managed CMK, a CMK needs to be created and secured by granting the publisher access to the same AWS KMS operations ```GenerateDataKey``` and ```Decrypt```. The access permission is granted using KMS key policies. The following JSON document shows an example policy statement for the customer-managed CMK
+
 # Enabling compatibility between encrypted topics and event sources
 Several AWS services publish events to Amazon SNS topics. To allow these event sources to work with encrypted topics, you must first create a customer-managed CMK and then add the following statement to the policy of the CMK.
 ```
