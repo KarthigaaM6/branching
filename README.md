@@ -17,8 +17,8 @@ Amazon SNS provides message encryption in transit, based on Amazon Trust Service
  - Amazon SNS encrypts only the body of the messages that you publish. It doesn’t encrypt message metadata (identifier, subject, timestamp, and attributes), topic metadata (name and attributes), or topic metrics. Thus, encryption doesn’t affect the operations of Amazon SNS, such as message fanout and message filtering.
  - Amazon SNS uses envelope encryption internally. It uses your configured CMK to generate a short-lived data encryption key (DEK) and then reuses this DEK to encrypt your published messages for 5 minutes. When the DEK expires, Amazon SNS automatically rotates to generate a new DEK from AWS KMS.
 
-# Creating, subscribing, and publishing to encrypted topics
-First, the principal publishing messages to the Amazon SNS encrypted topic must have access permission to execute the AWS KMS operations GenerateDataKey and Decrypt, in addition to the Amazon SNS operation Publish. The principal can be either an IAM user or an IAM role. The following IAM policy grants the required access permission to the principal.
+# Creating, subscribing and publishing to encrypted topics
+First, the principal publishing messages to the Amazon SNS encrypted topic must have access permission to execute the AWS KMS operations ```GenerateDataKey``` and ```Decrypt```, in addition to the Amazon SNS operation Publish. The principal can be either an IAM user or an IAM role. The following IAM policy grants the required access permission to the principal.
 
 ```
 Json
